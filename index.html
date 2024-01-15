@@ -316,12 +316,17 @@
          <input name="art_id" type="hidden">
          <table width="97%">
             <tr>
-               <td><input id="titleInput" class="btn btn-block btn-10p24" name="title" type="text" placeholder="Enter Your Title..." style="border:1px solid #000; text-align:center; text-transform: capitalize; color:black"></td>
+               <td><input id="titleInput" class="btn btn-block btn-10p24" name="title" type="text"
+                     placeholder="Enter Your Title..."
+                     style="border:1px solid #000; text-align:center; text-transform: capitalize; color:black" required></td>
             </tr>
          </table>
          <div id="visual-editor">
             <b class="bold">Visual Editor</b>
             <div id="editor" class="pell"></div>
+            <div style="text-align: center;">
+               Character Count: <span id="charCount">0</span>
+            </div>
          </div>
          <div id="source-editor">
             <b class="bold">Source Editor</b>
@@ -379,6 +384,42 @@
             line: { icon: '&#8213;', title: 'Horizontal Line', result: function result() { return exec('insertHorizontalRule'); } },
             link: { icon: '&#128279;', title: 'Link', result: function result() { var url = window.prompt('Enter the link URL'); if (url) exec('createLink', url); } },
             unlink: { icon: '<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAASlSURBVGhD7ZnJj1VFFMZbkHEBkQgiYOKCsDCBxMgkYUFcgC5w5wBiQEHYMP0lJAwODEZWDDuiJv4LKBqXGMWAYRAChqiIE6LfL/h1Tir17qt7X7/bj+R9yS/dt27d6jo1nHOqemSooYYaaqhCzRXviKPiE/GxOCK2iNli4PWU+FD8Lf7twJ/iXTFHDKReED+JXOdzXBXLxUDpFfGXiB29IPaJnWKXOCB+ELHOb2KFGAhhRFxKvwj2wgSR6lGBUb8L178sxn3fvCyiETfEYtFNq8Ufwt8xW+MmOnxHuDPXxTOiVLuFv2VZPi5a1yPirHBHboo6RqBJ4opwG5tF62JJuQP/iLWiid4Xboc407pOCHfgDAUNtVe4HYJm67ol3IH1FDTUHuF2PqWgTU0T/uPwpIiaKhY8+LWrDgq3QzrTquaJaMhMYWHEZ+KieJqCCk0U1HM720Srmiz8x78X0wWyEX53SVTNzFbhusSi+aJ1fSswgiQRpUYAz1NETsSgX4XrfiT6Lkac5cRMWHibpkbQ1jfCdXEc6T4bExHsiBMnRfROwEzgaay6RkQREJ8VJSlNbS0Rn4vYsUgvy6k1EQ/iuk15KIxIU/H74rR4SXCSYxnQeVTHCMpo47D4UlwTnBD5yfMH4kUxJgOQGkECuEbkVGoE547tgg7Hup2gHnGE7xqJ4ykj5AarUvFSI1h+X4lYrxRmqTQrGBUfRK/EoahXI5aKH0Wsx74jydwonhcLxSrxhsAzxjMN8P1zoljHhD/+WXRyg6VGMDAMhuuwz94T3W5LuDoinae+v8WYopnh43vCH74lOokGY06UM4K1/bVwnbviVVFHrwm+cxssM/KxSrGx/MF3IndREEUCSO6UMwLtEG6PkaVT1mOCWc2Jct5br4s4M+RjlSJldmWubErEzOSMoCx6Jy7frFmCjc8ApMZ4yfKeehYu2W1x95X7m6PiEOPKXAL0IuKE22Jje08w0tF7RWNshN9RzzPzhIgOYJ3oKI6VrhhzpyYi2LktvJOVdhZ4nvH/z7Q8ztgp4Xc4go7ioO+KeJZexKZ0W7jUqJwxt5Pn1Aj0pvD7cxR0EjeBrsiVDClIU8W4sZKCRDljTM4IRLxxHfZJR3FFGe9q6+yT9CQXM4NFFGTEckpngmfKc6Id16P9Sh0Srsz1JdeY3UTQPP/g11H1Y0aI/K5TOSMI7xJv+rhY5oI5l7gRZ/DpeCX8fFyKrGG3sYmCoJwRY7pHLK70udqPDXP1zzUNRsF+ESM7cLKzot8nd7JyRvBc4rU4QvhdsTNaJpi+2HAVpPmcJC3OE36H/ycOoKZxhPN7jCO1rmPZ/OyZuHFTcA7HRXpRQOSNAxFHsElkj1kH/zuJlx7F4mof10yQI2iSAdAwuVlVNhpzN/YQOZPFSKdGWJR7JtAGEXOtt0WrwkHEwEgWGxPHEmFEzH65BOma/fZDzFh0xYws6UW3Oyvek2nEmSAJLTqP9Euc7KIxwMbFC+GaiQ8+IeJiKU9PiBhR64TYLzGScZnV4QsxrjORij1DAC29RSEws7G7HfDGTbhOzhPsFUYbN42L5yfPuGreV7jYkZH/AKFhQlKp3jgAAAAAAElFTkSuQmCC" width="15px">', title: "Unlink", result: function () { return exec('unlink') } },
+            fontSize: {
+               icon: '<span>A</span>',
+               title: 'Font Size',
+               result: function result() {
+                  var size = window.prompt('Enter the font size (e.g., 12px)');
+                  if (size) exec('fontSize', size);
+               }
+            },
+
+            fontColor: {
+               icon: '<span style="color: #0000FF;">A</span>',
+               title: 'Font Color',
+               result: function result() {
+                  var color = window.prompt('Enter the font color (e.g., #FF0000)');
+                  if (color) exec('foreColor', color);
+               }
+            },
+
+            backgroundColor: {
+               icon: '<span style="background-color: #FF0000; padding: 2px;">A</span>',
+               title: 'Background Color',
+               result: function result() {
+                  var bgColor = window.prompt('Enter the background color (e.g., #00FF00)');
+                  if (bgColor) {
+                     var selection = window.getSelection();
+                     if (selection.rangeCount > 0) {
+                        var range = selection.getRangeAt(0);
+
+                        var span = document.createElement('span');
+                        span.style.backgroundColor = bgColor;
+                        span.style.padding = '2px';
+                        range.surroundContents(span);
+                     }
+                  }
+               }
+            },
             image: { icon: '&#128247;', title: 'Image', result: function result() { var url = window.prompt('Enter the image URL'); if (url) exec('insertImage', url); } }
             , justifyLeft: { icon: '<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAACOSURBVGhD7dixDYQwEERRJxRwIR1QBPElxPREKRRDREMwrsBOWFbDf9LPvRIWKxcAAGBuUL/k1TM2LepKXj1jE4ME1jWIzR1BNrM6AtvVI6Iv+6keYTPIqNbA/gqfMKktefWMTTYris0gNp8WsrH5IdqsKDaD2KzxyIYHusC6VhQGCaxrEB7oAADAq0q5AYd4KPsuwNLDAAAAAElFTkSuQmCC" width="15px">', title: "Align Left", result: function () { return exec('justifyLeft') } },
             justifyRight: { icon: '<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAACSSURBVGhD7dixCYAwEEbhNA5g6QYOYW1j7U6O4jBWLqSXXsgh5Iw/74PX58DDkAQAAMR1Vt94+YxFi3U1Xj5jEYME5hpEZkegYLeOwCaritN6WspauZb9DZlBZmsNbLDwO6O1NV4+Y5HMFUVmEJlPCwpkfojctV5WbRCZazxq4oEuMNeyM0hgrkF4oAMAAJ9K6QZQyij7CV5mPwAAAABJRU5ErkJggg==" width="15px">', title: "Align Right", result: function () { return exec('justifyRight') } },
@@ -469,29 +510,49 @@
 
       var editor = window.pell.init({
          element: document.getElementById('editor'),
-         actions: ['bold', 'italic', 'underline', 'heading1', 'heading2', 'olist', 'ulist', 'link', 'image', 'justifyLeft', 'justifyRight', 'justifyCenter', 'justifyFull'],
+         actions: [
+            'bold', 'italic', 'underline', 'heading1', 'heading2',
+            'olist', 'ulist', 'link', 'image', 'justifyLeft', 'justifyRight',
+            'justifyCenter', 'justifyFull', 'fontSize', 'fontColor', 'backgroundColor'
+         ],
          defaultParagraphSeparator: 'p',
          onChange: function (html) {
-            document.getElementById('html-output').value = html
+            document.getElementById('html-output').value = html;
+            updateCharCount(html);
          }
-      })
-      editor.content.innerHTML = document.getElementById('html-output').value
+      });
+
+      editor.content.innerHTML = document.getElementById('html-output').value;
+
       function TextArea() {
-         editor.content.innerHTML = document.getElementById('html-output').value
-      } function toggleEditor() {
-         if (document.getElementById("source-editor").style.display == "none") {
-            document.getElementById("source-editor").style.display = "block";
-            document.getElementById("visual-editor").style.display = "none";
+         editor.content.innerHTML = document.getElementById('html-output').value;
+         updateCharCount(editor.content.innerText);
+      }
+
+      function updateCharCount() {
+         var content = document.getElementById('editor').innerText;
+         var charCount = content.replace(/\s/g, '').length - 14;
+         charCount = charCount < 0 ? 0 : charCount;
+         document.getElementById('charCount').innerText = charCount;
+      }
+
+      function toggleEditor() {
+         var sourceEditor = document.getElementById("source-editor");
+         var visualEditor = document.getElementById("visual-editor");
+
+         if (sourceEditor.style.display === "none") {
+            sourceEditor.style.display = "block";
+            visualEditor.style.display = "none";
             document.getElementById("btn_lbl").value = "Visual Editor";
          } else {
-            document.getElementById("source-editor").style.display = "none";
-            document.getElementById("visual-editor").style.display = "block";
+            sourceEditor.style.display = "none";
+            visualEditor.style.display = "block";
             document.getElementById("btn_lbl").value = "Source Editor";
          }
       }
+
       function generatePDF() {
          var isSourceEditorVisible = document.getElementById("source-editor").style.display === "block";
-
          var content = isSourceEditorVisible ? document.getElementById('html-output').value : editor.content.innerHTML;
 
          var printWindow = window.open('', '_blank');
@@ -501,36 +562,59 @@
          printWindow.document.write('</body></html>');
 
          printWindow.document.close();
-
          printWindow.print();
       }
+
+      function changeFontSize() {
+         var size = prompt("Enter font size (e.g., 16px):");
+         if (size) {
+            document.execCommand("fontSize", false, size);
+            editor.content.focus();
+         }
+      }
+
+      function changeFontColor() {
+         var color = prompt("Enter font color (e.g., #ff0000):");
+         if (color) {
+            document.execCommand("foreColor", false, color);
+            editor.content.focus();
+         }
+      }
+
+      function changeBgColor() {
+         var color = prompt("Enter background color (e.g., #00ff00):");
+         if (color) {
+            document.execCommand("hiliteColor", false, color);
+            editor.content.focus();
+         }
+      }
       function validateForm() {
-            var titleInput = document.getElementById("titleInput").value.trim();
-            var editorContent = document.getElementById("html-output").value.trim();
-            var visualEditorContent = editor.content.innerText.trim();
+         var titleInput = document.getElementById("titleInput").value.trim();
+         var editorContent = document.getElementById("html-output").value.trim();
+         var visualEditorContent = editor.content.innerText.trim();
 
-            if (!titleInput) {
-                alert("Please Enter a Title.");
-                return false;
-            }
+         if (!titleInput) {
+            alert("Please Enter a Title.");
+            return false;
+         }
 
-            if (!/^[^\d]+$/.test(titleInput)) {
-                alert("Title Should not Contain Numbers.");
-                return false;
-            }
+         if (!/^[^\d]+$/.test(titleInput)) {
+            alert("Title Should not Contain Numbers.");
+            return false;
+         }
 
-            if (titleInput.length > 20) {
-                alert("Title Should not Exceed 20 Characters.");
-                return false;
-            }
+         if (titleInput.length > 20) {
+            alert("Title Should not Exceed 20 Characters.");
+            return false;
+         }
 
-            if (!editorContent && !visualEditorContent) {
-                alert("Please Enter Content in the Editor.");
-                return false;
-            }
+         if (!editorContent && !visualEditorContent) {
+            alert("Please Enter Content in the Editor.");
+            return false;
+         }
 
-            return true;
-        }
+         return true;
+      }
    </script>
 </body>
 
